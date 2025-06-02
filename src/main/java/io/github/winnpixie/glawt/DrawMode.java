@@ -1,4 +1,4 @@
-package io.github.winnpixie.awtogl;
+package io.github.winnpixie.glawt;
 
 public enum DrawMode {
     GL_POINTS(0),
@@ -22,9 +22,9 @@ public enum DrawMode {
         this.mode = mode;
     }
 
-    public static DrawMode fromGLInt(int modeInt) {
-        for (DrawMode mode : values()) {
-            if (mode.mode == modeInt) return mode;
+    public static DrawMode fromGLInt(int mode) {
+        for (DrawMode drawMode : values()) {
+            if (drawMode.mode == mode) return drawMode;
         }
 
         return null;

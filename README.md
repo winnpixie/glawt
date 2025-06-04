@@ -4,11 +4,11 @@ OpenGL (primarily 1.x / 2.x) loosely emulated using Java AWT.
 
 ## How to use
 
-Please don't, use library with native bindings (i.e. LWJGL, JOGL) instead.
+Take a look at [ImageOutputExample.java](src/main/java/example/ImageOutputExample.java) for basic implementation.
 
-If you insist, take a look at [ImageOutputExample.java](src/main/java/example/ImageOutputExample.java).
+In reality, please don't use this. You should really be using a project with proper native bindings, like LWJGL or JOGL.
 
 ## // TODO:
 
-- Matrices (MODELVIEW, PROJECTION, TEXTURE(?), COLOR(?))
-- 3D to 2D projection
+- "Proper" matrices (MODELVIEW, PROJECTION, TEXTURE(?), COLOR(?))
+- 3D to 2D projection (for vertices whose Z is not 0.0)

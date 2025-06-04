@@ -7,9 +7,10 @@ import java.util.Stack;
 
 public class GraphicsContext {
     private final Stack<Graphics2D> driverStack = new Stack<>();
-    private final List<VertexData> vertices = new ArrayList<>();
+    private final List<Vertex> vertices = new ArrayList<>();
 
-    private DrawMode drawMode;
+    private byte drawMode = -1;
+    private float pointSize = 1f;
 
     public GraphicsContext(Graphics2D driver) {
         driverStack.push(driver); // Push an initial state
@@ -23,15 +24,23 @@ public class GraphicsContext {
         return driverStack.peek();
     }
 
-    public List<VertexData> getVertices() {
+    public List<Vertex> getVertices() {
         return vertices;
     }
 
-    public DrawMode getDrawMode() {
+    public byte getDrawMode() {
         return drawMode;
     }
 
-    public void setDrawMode(DrawMode drawMode) {
-        this.drawMode = drawMode;
+    public void setDrawMode(byte mode) {
+        this.drawMode = mode;
+    }
+
+    public float getPointSize() {
+        return pointSize;
+    }
+
+    public void setPointSize(float pointSize) {
+        this.pointSize = pointSize;
     }
 }

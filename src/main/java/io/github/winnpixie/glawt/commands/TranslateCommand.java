@@ -6,10 +6,12 @@ import io.github.winnpixie.glawt.GraphicsContext;
 public class TranslateCommand implements Command {
     private final double x;
     private final double y;
+    private final double z;
 
-    public TranslateCommand(double x, double y) {
+    public TranslateCommand(double x, double y, double z) {
         this.x = x;
         this.y = y;
+        this.z = z;
     }
 
     @Override

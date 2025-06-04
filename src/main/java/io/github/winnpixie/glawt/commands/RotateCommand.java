@@ -7,11 +7,13 @@ public class RotateCommand implements Command {
     private final double angle;
     private final double x;
     private final double y;
+    private final double z;
 
-    public RotateCommand(double angle, double x, double y) {
+    public RotateCommand(double angle, double x, double y, double z) {
         this.angle = angle;
         this.x = x;
         this.y = y;
+        this.z = z;
     }
 
     @Override

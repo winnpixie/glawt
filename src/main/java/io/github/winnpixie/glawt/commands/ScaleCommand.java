@@ -6,10 +6,12 @@ import io.github.winnpixie.glawt.GraphicsContext;
 public class ScaleCommand implements Command {
     private final double x;
     private final double y;
+    private final double z;
 
-    public ScaleCommand(double x, double y) {
+    public ScaleCommand(double x, double y, double z) {
         this.x = x;
         this.y = y;
+        this.z = z;
     }
 
     @Override

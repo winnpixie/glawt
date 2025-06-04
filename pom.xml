@@ -23,7 +23,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>io.github.winnpixie.glawt.example.ImageOutputExample</mainClass>
+                            <mainClass>example.ImageOutputExample</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -11,8 +11,8 @@ public class CallListCommand implements Command {
 
     @Override
     public boolean execute(GraphicsContext context) {
-        CommandList list = GlobalContext.getList(name);
-        for (Command command : list) command.execute(GL.getContext());
+        CommandList list = DisplayLists.getList(name);
+        for (Command command : list) command.execute(GLAWT.getContext());
 
         return true;
     }

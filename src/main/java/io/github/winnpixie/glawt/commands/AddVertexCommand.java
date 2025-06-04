@@ -2,13 +2,13 @@ package io.github.winnpixie.glawt.commands;
 
 import io.github.winnpixie.glawt.Command;
 import io.github.winnpixie.glawt.GraphicsContext;
-import io.github.winnpixie.glawt.VertexData;
+import io.github.winnpixie.glawt.Vertex;
 
 public class AddVertexCommand implements Command {
-    private final VertexData vertex;
+    private final Vertex vertex;
 
-    public AddVertexCommand(double x, double y) {
-        this.vertex = new VertexData(x, y);
+    public AddVertexCommand(double x, double y, double z, double w) {
+        this.vertex = new Vertex(x, y, z, w);
     }
 
     @Override

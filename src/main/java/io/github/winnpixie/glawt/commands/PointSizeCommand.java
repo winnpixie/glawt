@@ -3,18 +3,16 @@ package io.github.winnpixie.glawt.commands;
 import io.github.winnpixie.glawt.Command;
 import io.github.winnpixie.glawt.GraphicsContext;
 
-public class BeginDrawCommand implements Command {
-    private final byte mode;
+public class PointSizeCommand implements Command {
+    private final float size;
 
-    public BeginDrawCommand(byte mode) {
-        this.mode = mode;
+    public PointSizeCommand(float size) {
+        this.size = size;
     }
 
     @Override
     public boolean execute(GraphicsContext context) {
-        if (context.getDrawMode() > -1) return false;
-
-        context.setDrawMode(mode);
+        context.setPointSize(size);
 
         return true;
     }

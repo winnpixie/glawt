@@ -4,13 +4,13 @@ public class Matrix { // TODO: Implement
     private final int rows;
     private final int columns;
 
-    private final double[][] values;
+    private final double[] values;
 
     public Matrix(int rows, int columns) {
-        this(rows, columns, new double[rows][columns]);
+        this(rows, columns, new double[rows * columns]);
     }
 
-    public Matrix(int rows, int columns, double[][] values) {
+    public Matrix(int rows, int columns, double[] values) {
         this.rows = rows;
         this.columns = columns;
         this.values = values;
@@ -24,16 +24,16 @@ public class Matrix { // TODO: Implement
         return columns;
     }
 
-    public double[][] getValues() {
+    public double[] getValues() {
         return values;
     }
 
     public static Matrix copy(Matrix matrix) {
-        double[][] values = new double[matrix.getRows()][matrix.getColumns()];
+        double[] values = new double[matrix.getRows() * matrix.getColumns()];
 
-        for (int y = 0; y < matrix.getRows(); y++) {
-            for (int x = 0; x < matrix.getColumns(); x++) {
-                values[y][x] = matrix.getValues()[y][x];
+        for (int x = 0; x < matrix.getColumns(); x++) {
+            for (int y = 0; y < matrix.getRows(); y++) {
+                values[x + y] = matrix.getValues()[x + y];
             }
         }
 

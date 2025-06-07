@@ -1,5 +1,7 @@
 package io.github.winnpixie.glawt;
 
+import io.github.winnpixie.glawt.vertex.Vertex;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

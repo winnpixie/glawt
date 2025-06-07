@@ -76,7 +76,7 @@ public class GLAWT {
     }
 
     public static void glColor4f(float red, float green, float blue, float alpha) {
-        glColor4d(red, green, blue, 1.0);
+        glColor4d(red, green, blue, alpha);
     }
 
     public static void glColor4d(double red, double green, double blue, double alpha) {

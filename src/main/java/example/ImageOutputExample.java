@@ -13,7 +13,7 @@ import static io.github.winnpixie.glawt.ListMode.GL_COMPILE;
 
 public class ImageOutputExample {
     public static void main(String[] args) {
-        BufferedImage output = new BufferedImage(129, 129, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage output = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
         setContext(new GraphicsContext(output.createGraphics()));
 
         // We could just work on the root command list, but why not show display lists are possible?
@@ -92,6 +92,8 @@ public class ImageOutputExample {
 
         glPopMatrix();
 
+        glPushMatrix();
+
         glTranslated(64.0, 64.0, 0.0);
         glColor3f(1f, 0f, 1f);
         glPointSize(4f);
@@ -99,6 +101,24 @@ public class ImageOutputExample {
         glBegin(GL_POINTS);
         glVertex2d(0.0, 0.0);
         glEnd();
+
+        glPopMatrix();
+
+        glPushMatrix();
+
+        glTranslated(64.0, 80.0, 0.0);
+        glColor3f(1f, 0.5f, 0.0f);
+
+        // Mainly for tessellation test
+        glBegin(GL_POLYGON);
+        glVertex2d(0.0, 0.0);
+        glVertex2d(32.0, 0.0);
+        glVertex2d(48.0, 32.0);
+        glVertex2d(16.0, 16.0);
+        glVertex2d(-16.0, 32.0);
+        glEnd();
+
+        glPopMatrix();
 
         glEndList();
 

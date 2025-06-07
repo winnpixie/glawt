@@ -9,7 +9,7 @@ public class DisplayLists {
     private static final Map<Integer, CommandList> LISTS = new HashMap<>();
     private static final CommandList ROOT_COMMAND_LIST = new CommandList(ListMode.GL_COMPILE_AND_EXECUTE);
 
-    private static int ACTIVE_LIST = 0;
+    private static int activeList = 0;
 
     static {
         LISTS.put(0, ROOT_COMMAND_LIST);
@@ -36,10 +36,10 @@ public class DisplayLists {
     }
 
     public static CommandList getActiveList() {
-        return LISTS.get(ACTIVE_LIST);
+        return LISTS.get(activeList);
     }
 
     public static void setActiveList(int name) {
-        ACTIVE_LIST = name;
+        activeList = name;
     }
 }

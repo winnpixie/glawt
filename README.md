@@ -1,6 +1,6 @@
 # glAWT
 
-OpenGL (primarily 1.x / 2.x) loosely emulated using Java AWT.
+OpenGL loosely implemented to be used with Java's Abstract Window Toolkit (AWT).
 
 ## How to use
 

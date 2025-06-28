@@ -1,47 +1,24 @@
 package io.github.winnpixie.glawt.vertex;
 
-public class Color {
-    private final float red;
-    private final float green;
-    private final float blue;
-    private final float alpha;
-
-    private final java.awt.Color awtColor;
-
+public record Color(float red,
+                    float green,
+                    float blue,
+                    float alpha,
+                    java.awt.Color awtColor) {
     public Color(float red, float green, float blue) {
         this(red, green, blue, 1f);
     }
 
     public Color(float red, float green, float blue, float alpha) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-        this.alpha = alpha;
-
-        this.awtColor = new java.awt.Color(red, green, blue, alpha);
-    }
-
-    public float getRed() {
-        return red;
-    }
-
-    public float getGreen() {
-        return green;
-    }
-
-    public float getBlue() {
-        return blue;
-    }
-
-    public float getAlpha() {
-        return alpha;
+        this(red, green, blue, alpha,
+                new java.awt.Color(red, green, blue, alpha));
     }
 
     public Color lerp(Color other, float stage) {
-        float redDelta = other.getRed() - red;
-        float greenDelta = other.getRed() - green;
-        float blueDelta = other.getRed() - blue;
-        float alphaDelta = other.getRed() - alpha;
+        float redDelta = other.red() - red;
+        float greenDelta = other.green() - green;
+        float blueDelta = other.blue() - blue;
+        float alphaDelta = other.alpha() - alpha;
 
         return new Color(
                 red + (redDelta * stage),
@@ -51,16 +28,13 @@ public class Color {
         );
     }
 
-    public java.awt.Color getAwtColor() {
-        return awtColor;
-    }
-
     public static Color fromAWT(java.awt.Color awtColor) {
         return new Color(
                 awtColor.getRed() / 255f,
                 awtColor.getGreen() / 255f,
                 awtColor.getBlue() / 255f,
-                awtColor.getAlpha() / 255f
+                awtColor.getAlpha() / 255f,
+                awtColor
         );
     }
 }

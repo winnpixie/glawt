@@ -5,6 +5,9 @@ import io.github.winnpixie.glawt.vertex.Position;
 import io.github.winnpixie.glawt.vertex.Vertex;
 
 public class ShapeHelper {
+    private ShapeHelper() {
+    }
+
     public static Vertex[][] createLines(Vertex[] vertices) {
         Vertex[][] lines = new Vertex[vertices.length / 2][2];
 
@@ -75,7 +78,6 @@ public class ShapeHelper {
         return quads;
     }
 
-    // FIXME: This is a worst-case algorithm I thought of at work, lol.
     // Tc: Triangle Count
     // Vc: Vertex Count
     // Cv: Center Vertex
@@ -85,6 +87,7 @@ public class ShapeHelper {
     // ---
     // Tc = Vc
     // ---
+    // FIXME: This is a worst-case algorithm I thought of at work, lol.
     public static Vertex[][] triangulate(Vertex[] vertices) {
         if (vertices.length == 3) return new Vertex[][]{vertices}; // No point in triangulating a triangle.
 
@@ -102,14 +105,15 @@ public class ShapeHelper {
 
         for (int i = 0; i < vertexCount; i++) {
             Vertex vertex = vertices[i];
-            cx += vertex.getPosition().getX();
-            cy += vertex.getPosition().getY();
-            cz += vertex.getPosition().getZ();
 
-            r += vertex.getColor().getRed();
-            g += vertex.getColor().getGreen();
-            b += vertex.getColor().getBlue();
-            a += vertex.getColor().getAlpha();
+            cx += vertex.position().x();
+            cy += vertex.position().y();
+            cz += vertex.position().z();
+
+            r += vertex.color().red();
+            g += vertex.color().green();
+            b += vertex.color().blue();
+            a += vertex.color().alpha();
         }
 
         Vertex center = new Vertex(new Position(cx / vertexCount, cy / vertexCount, cz / vertexCount, cw),

@@ -1,23 +1,23 @@
 package example;
 
-import io.github.winnpixie.glawt.GraphicsContext;
+import io.github.winnpixie.glawt.GLContext;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static io.github.winnpixie.glawt.DrawMode.*;
-import static io.github.winnpixie.glawt.GLAWT.*;
-import static io.github.winnpixie.glawt.ListMode.GL_COMPILE;
+import static io.github.winnpixie.glawt.OpenGL.*;
+import static io.github.winnpixie.glawt.commands.DisplayListMode.GL_COMPILE;
+import static io.github.winnpixie.glawt.immediate.VertexMode.*;
 
 public class ImageOutputExample {
     public static void main(String[] args) {
         BufferedImage output = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
-        setContext(new GraphicsContext(output.createGraphics()));
+        setGLContext(GLContext.create(output.createGraphics()));
 
         // We could just work on the root command list, but why not show display lists are possible?
-        int commands = glGenLists(1);
+        long commands = glGenLists(1);
         glNewList(commands, GL_COMPILE);
 
         // Blank the background
@@ -126,9 +126,9 @@ public class ImageOutputExample {
         glDeleteLists(commands, 1);
 
         try {
-            ImageIO.write(output, "PNG", new File("glawt-example.png"));
+            ImageIO.write(output, "PNG", new File("gl-awt_example.png"));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }

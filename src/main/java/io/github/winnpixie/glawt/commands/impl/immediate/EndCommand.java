@@ -7,13 +7,13 @@ import io.github.winnpixie.glawt.immediate.VertexMode;
 public class EndCommand implements GLCommand {
     @Override
     public boolean execute(GLContext context) {
-        if (context.getVertexManager().getMode() == VertexMode.NOTHING) return false;
+        if (context.getVertexManager().getMode() == VertexMode.NONE) return false;
 
         java.awt.Color awtColor = context.getActiveDriver().getColor();
 
         context.getVertexManager().draw(context);
         context.getVertexManager().getVertices().clear();
-        context.getVertexManager().setMode(VertexMode.NOTHING);
+        context.getVertexManager().setMode(VertexMode.NONE);
 
         // Restore color
         context.getActiveDriver().setColor(awtColor);

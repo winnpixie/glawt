@@ -88,7 +88,7 @@ public class ShapeHelper {
     // Tc = Vc
     // ---
     // FIXME: This is a worst-case algorithm I thought of at work, lol.
-    public static Vertex[][] triangulate(Vertex[] vertices) {
+    public static Vertex[][] tessellate(Vertex[] vertices) {
         if (vertices.length == 3) return new Vertex[][]{vertices}; // No point in triangulating a triangle.
 
         int vertexCount = vertices.length;
@@ -96,7 +96,7 @@ public class ShapeHelper {
         double cx = 0.0;
         double cy = 0.0;
         double cz = 0.0;
-        double cw = 1.0; // "cw" will always be 1, there is no sense in computing its average.
+        double cw = 1.0; // "cw" will [almost?] always be 1, there is no sense in computing its average.
 
         float r = 0f;
         float g = 0f;

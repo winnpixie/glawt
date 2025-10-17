@@ -17,5 +17,5 @@ public enum VertexMode {
     /* Polygon */
     GL_POLYGON,
     /* Disabled */
-    NOTHING
+    NONE
 }

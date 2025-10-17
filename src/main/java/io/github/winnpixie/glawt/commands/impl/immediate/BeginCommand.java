@@ -7,7 +7,7 @@ import io.github.winnpixie.glawt.immediate.VertexMode;
 public record BeginCommand(VertexMode mode) implements GLCommand {
     @Override
     public boolean execute(GLContext context) {
-        if (context.getVertexManager().getMode() != VertexMode.NOTHING) return false;
+        if (context.getVertexManager().getMode() != VertexMode.NONE) return false;
 
         context.getVertexManager().setMode(mode);
         return true;

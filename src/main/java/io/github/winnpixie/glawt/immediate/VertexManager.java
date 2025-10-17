@@ -14,7 +14,7 @@ import java.util.List;
 public class VertexManager {
     private final List<Vertex> vertices = Collections.synchronizedList(new ArrayList<>());
 
-    private VertexMode mode = VertexMode.NOTHING;
+    private VertexMode mode = VertexMode.NONE;
     private Color color;
     private float lineWidth = 1f;
     private float pointSize = 1f;
@@ -28,7 +28,7 @@ public class VertexManager {
     }
 
     public void setMode(VertexMode mode) {
-        if (mode == null) mode = VertexMode.NOTHING;
+        if (mode == null) mode = VertexMode.NONE;
 
         this.mode = mode;
     }
@@ -62,7 +62,7 @@ public class VertexManager {
         Vertex[] vertexArray = vertices.toArray(new Vertex[0]);
 
         switch (mode) {
-            case NOTHING:
+            case NONE:
                 break;
             case VertexMode.GL_POINTS: { // Pc = Vc
                 for (int i = 0; i < vertexArray.length; i++) drawPoint(vertexArray[i], context);
@@ -100,7 +100,7 @@ public class VertexManager {
                 break;
             }
 
-            case VertexMode.GL_TRIANGLE_FAN: { // Tc = VXc - 2
+            case VertexMode.GL_TRIANGLE_FAN: { // Tc = Vc - 2
                 Vertex origin = vertexArray[0];
                 Vertex[][] triangles = ShapeHelper.createTriangleChain(vertexArray);
 
@@ -160,7 +160,7 @@ public class VertexManager {
 
     // TODO: Ween off of AWT dependence to allow finer draw control.
     private void drawPolygon(Vertex[] vertices, GLContext context) {
-        Vertex[][] tessellated = ShapeHelper.triangulate(vertices);
+        Vertex[][] tessellated = ShapeHelper.tessellate(vertices);
 
         for (Vertex[] triangle : tessellated) {
             Path2D.Double trianglePath = new Path2D.Double();

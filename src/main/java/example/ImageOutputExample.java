@@ -109,7 +109,7 @@ public class ImageOutputExample {
         glTranslated(64.0, 80.0, 0.0);
         glColor3f(1f, 0.5f, 0.0f);
 
-        // Mainly for tessellation test
+        // Tessellation test
         glBegin(GL_POLYGON);
         glVertex2d(0.0, 0.0);
         glVertex2d(32.0, 0.0);

@@ -58,7 +58,7 @@ public class VertexManager {
     }
 
     public void draw(GLContext context) {
-        // I doubt this command got implemented even semi-correctly, but whatever.
+        // I doubt this implementation is even semi-correct, but I don't care right now.
         Vertex[] vertexArray = vertices.toArray(new Vertex[0]);
 
         switch (mode) {
@@ -139,8 +139,8 @@ public class VertexManager {
                 pointSize, pointSize
         );
 
-        context.getActiveDriver().setColor(vertex.color().awtColor());
-        context.getActiveDriver().fill(pointRect);
+        context.getActiveGraphics().setColor(vertex.color().awtColor());
+        context.getActiveGraphics().fill(pointRect);
     }
 
     private void drawLine(Vertex[] vertices, GLContext context) {
@@ -154,8 +154,8 @@ public class VertexManager {
             linePath.lineTo(vertex.position().x(), vertex.position().y());
         }
 
-        context.getActiveDriver().setColor(vertices[0].color().awtColor());
-        context.getActiveDriver().draw(linePath);
+        context.getActiveGraphics().setColor(vertices[0].color().awtColor());
+        context.getActiveGraphics().draw(linePath);
     }
 
     // TODO: Ween off of AWT dependence to allow finer draw control.
@@ -173,8 +173,8 @@ public class VertexManager {
                 trianglePath.lineTo(vertex.position().x(), vertex.position().y());
             }
 
-            context.getActiveDriver().setColor(triangle[0].color().awtColor());
-            context.getActiveDriver().fill(trianglePath);
+            context.getActiveGraphics().setColor(triangle[0].color().awtColor());
+            context.getActiveGraphics().fill(trianglePath);
         }
     }
 }

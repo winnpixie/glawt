@@ -9,14 +9,14 @@ public class EndCommand implements GLCommand {
     public boolean execute(GLContext context) {
         if (context.getVertexManager().getMode() == VertexMode.NONE) return false;
 
-        java.awt.Color awtColor = context.getActiveDriver().getColor();
+        java.awt.Color awtColor = context.getActiveGraphics().getColor();
 
         context.getVertexManager().draw(context);
         context.getVertexManager().getVertices().clear();
         context.getVertexManager().setMode(VertexMode.NONE);
 
         // Restore color
-        context.getActiveDriver().setColor(awtColor);
+        context.getActiveGraphics().setColor(awtColor);
         return true;
     }
 }

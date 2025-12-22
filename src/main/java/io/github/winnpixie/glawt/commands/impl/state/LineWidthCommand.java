@@ -8,7 +8,7 @@ import java.awt.*;
 public record LineWidthCommand(float size) implements GLCommand {
     @Override
     public boolean execute(GLContext context) {
-        context.getActiveDriver().setStroke(new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+        context.getActiveGraphics().setStroke(new BasicStroke(size, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 
         return true;
     }

@@ -9,20 +9,20 @@ import java.util.Deque;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class GLContext {
-    private final Deque<Graphics2D> graphicsDrivers = new ConcurrentLinkedDeque<>();
+    private final Deque<Graphics2D> graphics = new ConcurrentLinkedDeque<>();
     private final DisplayListManager displayListManager = new DisplayListManager();
     private final MatrixManager matrixManager = new MatrixManager();
     private final VertexManager vertexManager = new VertexManager();
 
-    private GLContext() {
+    GLContext() {
     }
 
-    public Deque<Graphics2D> getGraphicsDrivers() {
-        return graphicsDrivers;
+    public Deque<Graphics2D> getGraphics() {
+        return graphics;
     }
 
-    public Graphics2D getActiveDriver() {
-        return graphicsDrivers.peek();
+    public Graphics2D getActiveGraphics() {
+        return graphics.peek();
     }
 
     public DisplayListManager getDisplayListManager() {
@@ -35,12 +35,5 @@ public class GLContext {
 
     public VertexManager getVertexManager() {
         return vertexManager;
-    }
-
-    public static GLContext create(Graphics2D graphicsDriver) {
-        GLContext context = new GLContext();
-        context.getGraphicsDrivers().push(graphicsDriver);
-
-        return context;
     }
 }

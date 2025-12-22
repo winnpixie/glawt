@@ -24,12 +24,12 @@ public class OpenGL {
         return glContext;
     }
 
-    public static void setGLContext(GLContext newContext) {
-        glContext = newContext;
+    static void setGLContext(GLContext context) {
+        glContext = context;
     }
 
-    private static void queueCommand(GLCommand glCommand) {
-        glContext.getDisplayListManager().getActiveDisplayList().add(glCommand);
+    private static void queueCommand(GLCommand command) {
+        glContext.getDisplayListManager().getActiveDisplayList().add(command);
     }
 
     public static long glGenLists(int range) {

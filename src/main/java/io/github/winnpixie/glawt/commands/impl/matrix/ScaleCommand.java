@@ -10,7 +10,7 @@ public record ScaleCommand(double x,
     public boolean execute(GLContext context) {
         // TODO: Implement proper OpenGL math
 
-        context.getActiveDriver().scale(x, y);
+        context.getActiveGraphics().scale(x, y);
 
         return true;
     }

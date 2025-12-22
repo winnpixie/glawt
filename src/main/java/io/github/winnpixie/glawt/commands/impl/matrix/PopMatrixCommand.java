@@ -6,7 +6,8 @@ import io.github.winnpixie.glawt.commands.GLCommand;
 public class PopMatrixCommand implements GLCommand {
     @Override
     public boolean execute(GLContext context) {
-        context.getGraphicsDrivers().pop();
+        context.getActiveGraphics().dispose();
+        context.getGraphics().pop();
 
         return true;
     }

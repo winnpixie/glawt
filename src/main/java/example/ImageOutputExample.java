@@ -1,12 +1,12 @@
 package example;
 
-import io.github.winnpixie.glawt.GLContext;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static io.github.winnpixie.glawt.GLAWT.glawtCreateContext;
+import static io.github.winnpixie.glawt.GLAWT.glawtSetContext;
 import static io.github.winnpixie.glawt.OpenGL.*;
 import static io.github.winnpixie.glawt.commands.DisplayListMode.GL_COMPILE;
 import static io.github.winnpixie.glawt.immediate.VertexMode.*;
@@ -14,7 +14,7 @@ import static io.github.winnpixie.glawt.immediate.VertexMode.*;
 public class ImageOutputExample {
     public static void main(String[] args) {
         BufferedImage output = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
-        setGLContext(GLContext.create(output.createGraphics()));
+        glawtSetContext(glawtCreateContext(output.createGraphics()));
 
         // We could just work on the root command list, but why not show display lists are possible?
         long commands = glGenLists(1);
@@ -127,8 +127,8 @@ public class ImageOutputExample {
 
         try {
             ImageIO.write(output, "PNG", new File("gl-awt_example.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 }

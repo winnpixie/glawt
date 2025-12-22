@@ -10,7 +10,7 @@ public record TranslateCommand(double x,
     public boolean execute(GLContext context) {
         // TODO: Implement proper OpenGL math
 
-        context.getActiveDriver().translate(x, y);
+        context.getActiveGraphics().translate(x, y);
 
         return true;
     }

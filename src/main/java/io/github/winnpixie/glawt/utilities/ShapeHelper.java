@@ -87,41 +87,41 @@ public class ShapeHelper {
     // ---
     // Tc = Vc
     // ---
-    // FIXME: This is a worst-case algorithm I thought of at work, lol.
+    // FIXME: This is, like, a worst-case algorithm I thought of at work, lol.
     public static Vertex[][] tessellate(Vertex[] vertices) {
         if (vertices.length == 3) return new Vertex[][]{vertices}; // No point in triangulating a triangle.
 
         int vertexCount = vertices.length;
+        Vertex[][] triangles = new Vertex[vertexCount][3];
 
-        double cx = 0.0;
-        double cy = 0.0;
-        double cz = 0.0;
-        double cw = 1.0; // "cw" will [almost?] always be 1, there is no sense in computing its average.
+        double vx = 0.0;
+        double vy = 0.0;
+        double vz = 0.0;
+        double vw = 1.0; // Will [almost?] always be 1, there is no sense in computing its average.
 
-        float r = 0f;
-        float g = 0f;
-        float b = 0f;
-        float a = 0f;
+        float vr = 0f;
+        float vg = 0f;
+        float vb = 0f;
+        float va = 0f;
 
         for (int i = 0; i < vertexCount; i++) {
             Vertex vertex = vertices[i];
 
-            cx += vertex.position().x();
-            cy += vertex.position().y();
-            cz += vertex.position().z();
+            vx += vertex.position().x();
+            vy += vertex.position().y();
+            vz += vertex.position().z();
 
-            r += vertex.color().red();
-            g += vertex.color().green();
-            b += vertex.color().blue();
-            a += vertex.color().alpha();
+            vr += vertex.color().red();
+            vg += vertex.color().green();
+            vb += vertex.color().blue();
+            va += vertex.color().alpha();
         }
 
-        Vertex center = new Vertex(new Position(cx / vertexCount, cy / vertexCount, cz / vertexCount, cw),
-                new Color(r / vertexCount, g / vertexCount, b / vertexCount, a / vertexCount));
+        Vertex centerVertex = new Vertex(new Position(vx / vertexCount, vy / vertexCount, vz / vertexCount, vw),
+                new Color(vr / vertexCount, vg / vertexCount, vb / vertexCount, va / vertexCount));
 
-        Vertex[][] triangles = new Vertex[vertexCount][3];
         for (int t = 0; t < vertexCount; t++) {
-            triangles[t][0] = center;
+            triangles[t][0] = centerVertex;
             triangles[t][1] = vertices[t];
             triangles[t][2] = vertices[(t + 1) % vertexCount];
         }

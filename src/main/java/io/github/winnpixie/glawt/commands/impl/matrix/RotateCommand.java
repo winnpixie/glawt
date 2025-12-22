@@ -11,7 +11,7 @@ public record RotateCommand(double angle,
     public boolean execute(GLContext context) {
         // TODO: Implement proper OpenGL math
 
-        context.getActiveDriver().rotate(angle, x, y);
+        context.getActiveGraphics().rotate(angle, x, y);
 
         return true;
     }

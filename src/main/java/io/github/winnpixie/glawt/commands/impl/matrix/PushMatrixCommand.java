@@ -8,7 +8,7 @@ import java.awt.*;
 public class PushMatrixCommand implements GLCommand {
     @Override
     public boolean execute(GLContext context) {
-        context.getGraphicsDrivers().push((Graphics2D) context.getActiveDriver().create());
+        context.getGraphics().push((Graphics2D) context.getActiveGraphics().create());
 
         return true;
     }

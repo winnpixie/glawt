@@ -1,5 +1,6 @@
 package io.github.winnpixie.glawt.utilities;
 
+import io.github.winnpixie.glawt.GLAWT;
 import io.github.winnpixie.glawt.vertex.Color;
 import io.github.winnpixie.glawt.vertex.Position;
 import io.github.winnpixie.glawt.vertex.Vertex;
@@ -78,52 +79,96 @@ public class ShapeHelper {
         return quads;
     }
 
-    // Tc: Triangle Count
-    // Vc: Vertex Count
-    // Cv: Center Vertex
-    // ---
-    // Cv = avg([ v(0), v(1), v(2), ... ])
-    // T(n) = [ Cv, v(n), v(n + 1) ]
-    // ---
-    // Tc = Vc
-    // ---
-    // FIXME: This is, like, a worst-case algorithm I thought of at work, lol.
     public static Vertex[][] tessellate(Vertex[] vertices) {
-        if (vertices.length == 3) return new Vertex[][]{vertices}; // No point in triangulating a triangle.
+        if (vertices.length == 3) { // Do not tessellate one triangle.
+            return new Vertex[][]{vertices};
+        }
 
+        return switch (GLAWT.glawtGetShapeMode()) {
+            case GLAWT_SHAPES_CONVEX -> tessellateSimple(vertices);
+            case GLAWT_SHAPES_CONCAVE,
+                 GLAWT_SHAPES_ANY -> tessellateAveraging(vertices);
+        };
+    }
+
+    public static Vertex[][] tessellateAveraging(Vertex[] vertices) {
+        /*
+            Tc - Triangle count
+            Vc - Vertex count
+            Cv - Center vertex
+            --------
+            Cv = average([ V(0), V(1), V(2), V(...) ])
+            T(n) = [ Cv, V(n), V(n + 1) ]
+            --------
+            Tc = Vc
+         */
+
+        int triangleCount = vertices.length;
+        Vertex[][] triangles = new Vertex[triangleCount][3];
+
+        Vertex centerVertex = computeCenter(vertices);
+
+        for (int t = 0; t < triangleCount; t++) {
+            triangles[t][0] = centerVertex;
+            triangles[t][1] = vertices[t];
+            triangles[t][2] = vertices[(t + 1) % triangleCount];
+        }
+
+        return triangles;
+    }
+
+    private static Vertex computeCenter(Vertex[] vertices) {
         int vertexCount = vertices.length;
-        Vertex[][] triangles = new Vertex[vertexCount][3];
 
-        double vx = 0.0;
-        double vy = 0.0;
-        double vz = 0.0;
-        double vw = 1.0; // Will [almost?] always be 1, there is no sense in computing its average.
+        double sx = 0.0;
+        double sy = 0.0;
+        double sz = 0.0;
+        double sw = 1.0;
 
-        float vr = 0f;
-        float vg = 0f;
-        float vb = 0f;
-        float va = 0f;
+        float sr = 0f;
+        float sg = 0f;
+        float sb = 0f;
+        float sa = 0f;
 
         for (int i = 0; i < vertexCount; i++) {
             Vertex vertex = vertices[i];
 
-            vx += vertex.position().x();
-            vy += vertex.position().y();
-            vz += vertex.position().z();
+            sx += vertex.position().x();
+            sy += vertex.position().y();
+            sz += vertex.position().z();
+            // There is no need to compute the average for 'w', as it is [almost?] always 1.
 
-            vr += vertex.color().red();
-            vg += vertex.color().green();
-            vb += vertex.color().blue();
-            va += vertex.color().alpha();
+            sr += vertex.color().red();
+            sg += vertex.color().green();
+            sb += vertex.color().blue();
+            sa += vertex.color().alpha();
         }
 
-        Vertex centerVertex = new Vertex(new Position(vx / vertexCount, vy / vertexCount, vz / vertexCount, vw),
-                new Color(vr / vertexCount, vg / vertexCount, vb / vertexCount, va / vertexCount));
+        return new Vertex(new Position(sx / vertexCount, sy / vertexCount, sz / vertexCount, sw),
+                new Color(sr / vertexCount, sg / vertexCount, sb / vertexCount, sa / vertexCount));
+    }
 
-        for (int t = 0; t < vertexCount; t++) {
-            triangles[t][0] = centerVertex;
-            triangles[t][1] = vertices[t];
-            triangles[t][2] = vertices[(t + 1) % vertexCount];
+    public static Vertex[][] tessellateSimple(Vertex[] vertices) {
+        /*
+            Tc - Triangle count
+            Vc - Vertex count
+            Ov - Origin vertex
+            --------
+            Ov = V(0)
+            T(n) = [ Ov, V(n + 1), V(n + 2) ]
+            --------
+            Tc = Vc - 2
+         */
+
+        int triangleCount = vertices.length - 2;
+        Vertex[][] triangles = new Vertex[triangleCount][3];
+
+        Vertex originVertex = vertices[0];
+
+        for (int t = 0; t < triangleCount; t++) {
+            triangles[t][0] = originVertex;
+            triangles[t][1] = vertices[t + 1];
+            triangles[t][2] = vertices[t + 2];
         }
 
         return triangles;
